@@ -1,0 +1,30 @@
+Nand flash:
+1. low cost
+2. faster write and erase
+3. No support Execution in place(XIP)
+4. Recommended for Data storage
+
+Nor Flash
+1. comparitively more cost
+2. slower write and erase 
+3. supports XIP
+4. Recommended for code storage
+
+SRAM:
+
+1. Faster as it doesnot require refresh.
+2. Doesnot require refresh.
+3. Occupies more space on-chip
+4. Expensive
+5. Size of SRAM is typically smaller compared to DRAM on embedded system
+
+DRAM:
+
+1. Slower because it needs refresh to retain data.
+2. less expensive
+3. requires refresh circuitry.
+4. occupies less space on chip
+5. Size of DRAM is typically greater compared to SRAM on embedded system
+
+--------------------------Nand flash booting LINK--------------------------------------------------------------
+http://www.macronix.com/Lists/ApplicationNote/Attachments/1155/AN0270V1-Booting%20from%20NAND%20App%20Note-1212-new.pdf
