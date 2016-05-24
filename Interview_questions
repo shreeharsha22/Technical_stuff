@@ -1,0 +1,104 @@
+1. write a program to read content of a file?
+2. what is virtual destructor? explain?
+3. how to write a receipi in yocto?
+4. syntax of constant pointer to an integer and pointer to an constant integer?
+5. performance difference between i++ and ++i?
+Ans:
+	++i is faster as it doesnot save a copy of i.
+	i++ is slower as it saves a copy of i for use and then increments and then throws away the copy.
+
+	so performance wise ++i is better to use if i is not used before increment	.
+
+
+6. what is mmap, Kmap and ioremap?
+Ans:
+	For example, in a 32-bit architecture CPU can generate 2^32 addresses i-e. it can virtually address upto 4GB of memory. In general, kernel is assigned 1GB(also called LOW memory) and User space is assigned 3GB(also called HIGH memory).
+
+1. mmap: Normally user space processes can't access device memory directly for security purpose. So, user space processes use the mmap system call to ask kernel to map the device into virtual address space of the calling process. After the mapping the user space process can write directly into the device memory via the returned address.
+
+The mmap system call is declared as follows:
+mmap (caddr_t addr, size_t len, int prot, int flags, int fd, off_t offset);
+
+Where as, the mmap field in the driver's file operation structure is declared as:
+int (*mmap) (struct file *filp, struct vm_area_struct *vma); 
+
+2.ioremap: ioremap is used to map physical memory into virtual address space of the kernel.
+In most of the system now a days, the devices are memory mapped to the system. That means, kernel can access these device registers by writing directly into these physical memory addresses. But, when MMU is enabled in a system, the kernel works on virtual memory. So, the physical address has to be mapped into virtual address first before the kernel can access these devices and perform IO. ioremap call does exactly that.
+The ioremap declaration is as follows:
+void *ioremap(unsigned long phys_addr, unsigned long size);
+
+3. kmap: To understand kmap, you need to have some understanding about Memory Management Unit (MMU) and the page tables.
+
+In a 32-bit system, generally a page is of size 4KB. Every physical page is represented by a structure struct page. The mapping of virtual to physical address translation is stored in the page tables. So, when a process does some operation on virtual address, then MMU first translates the virtual address into physical address, and then operation could be performed on actual physical memory.
+
+The pages in low memory is always permanently mapped to kernel address space, but the pages in high memory might not be permanently mapped into the kernel’s
+address space. As I have explained before if MMU is enabled, kernel always works on virtual address space. If you have the physical page structure, then first it needs to have a mapping in kernel's virtual address space and only then we can use it.
+
+kmap is used to map a given page structure into the kernel’s address space.
+The declaration of kmap is as follows:
+void *kmap(struct page *page);
+
+This function works on both High memory and Low memory.
+If the page structure belongs to a page in low memory, then just the virtual address of the page is returned. (Note that Low memory pages already have permanent mappings)
+
+If the page resides in high memory, a permanent mapping is created in the page tables and then the address is returned.
+
+
+7. is MMU mandatory in any processor?
+Ans: If multiple process are not running then mmu is not necessary ex ARM cotrex-m series doesnot have MMU 
+ if multiple process are running then mmu is a must  to achieve virtual memory concept.
+
+8. what is flat memory model?
+9. what is priority inheritance and priority inversion?
+10. how to include a driver statically to a kernel?
+11. write a program to find endian of an architecture and change the endian?
+12. write a macro to set and reset a bit
+13. reverse a linked list?
+14. find a middle node of a link?(optmised)
+Ans
+	Hint:
+	slow_ptr=cur->next;
+	fast_ptr=cur->next->next;
+15. Delete a node at Kth position from last
+Ans:
+	Hint:
+	point fast_ptr to Kth node from begining;
+	travese the linked list  with slow_ptr=cur->next and above fast_ptr until fast_ptr==NULL
+	now do slow_ptr->next=slow_ptr->next->next;
+
+16. what is kernel parmeter to pick kernel from sdcard?
+17. implement your own strcpy?
+18. count number of 1's in a number
+19. what is structure padding?
+20. write a program to find power of 4(optimised way)?
+Ans:
+	1. find number of 1's in num.
+	if(num==1){
+		number is power of 4
+		find the position of 1 in num  
+ 		the position value is the power of 4}
+	else{
+		number is not power of 4}
+21. multiplication using bitwise operator?
+Ans:
+	main()
+{
+    int a, b, result;
+    printf("\nEnter the numbers to be multiplied:");
+    scanf("%d%d", &a, &b);       // a > b
+    result = 0;
+    while (b != 0)               // Iterate the loop till b == 0
+    {
+        if (b & 01)               // Bitwise & of the value of b with 01
+        {
+            result = result + a;  // Add a to result if b is odd .
+        }
+        a<<=1;                    // Left shifting the value contained in 'a' by 1
+                                  // Multiplies a by 2 for each loop
+        b>>=1;                    // Right shifting the value contained in 'b' by 1.
+    }
+    printf("nResult:%d",result);
+}
+
+22. 
+
